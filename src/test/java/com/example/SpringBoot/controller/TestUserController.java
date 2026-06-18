@@ -54,7 +54,7 @@
      MvcResult mvcResult = perform.andReturn();
      //得到执行后的响应
      MockHttpServletResponse response = mvcResult.getResponse();
-
+        System.out.println("分支操作");
         logger.info("响应状态码："+response.getStatus());
         logger.info("响应结果："+response.getContentAsString());
 
