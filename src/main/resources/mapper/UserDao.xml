@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.SpringBoot.dao.UserDao">
+
+    <resultMap id="UserResultMap" type="com.example.SpringBoot.entity.User">
+        <id property="id" column="user_id" javaType="int"/>
+        <result property="name" column="user_name" javaType="String"/>
+        <result property="password" column="user_pwd" javaType="String"/>
+        <result property="email" column="user_email" javaType="String"/>
+        <result property="createTime" column="create_date" javaType="java.util.Date"/>
+        <result property="updateTime" column="update_date" javaType="java.util.Date"/>
+    </resultMap>
+    <!--
+    id对应的是UserDao接口中对应的方法
+    parameterType对应的是传入参数的类型
+    resultType 对应的是返回的类型-->
+    <select id="getUserById" parameterType="int" resultMap="UserResultMap">
+        select *
+        from user
+        where user_id=#{id}
+    </select>
+
+    <select id="getUserByName" parameterType="string" resultMap="UserResultMap">
+        select *
+        from user
+        where user_name=#{name}
+    </select>
+
+    <insert id="addUser" parameterType="com.example.SpringBoot.entity.User">
+        insert into user(user_name,user_pwd,user_email,create_date,update_date)
+        values(#{name},#{password},#{email},now(),now())
+    </insert>
+
+    <update id="updateUser" parameterType="com.example.SpringBoot.entity.User">
+        update user
+        set user_name=#{name},user_pwd=#{password},user_email=#{email},update_date=now()
+        where user_id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int" >
+        delete from user
+        where user_id=#{id}
+    </delete>
+
+    <select id="selectUserByParams" parameterType="com.example.SpringBoot.query.UserQuery" resultMap="UserResultMap">
+        select *
+        from user
+        <where>
+            <if test="name != null and name !='' ">
+               and user_name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

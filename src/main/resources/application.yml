@@ -1,0 +1,38 @@
+server:
+  port: 8919
+  servlet:
+    context-path: /SpringBoot_Mybatis
+
+
+spring:
+  datasource:
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 5851
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      poll-interval: 3000  # 检测间隔3秒
+      quiet-period: 1000    # 修改后等待1秒再重启
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.SpringBoot.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helper-dialect: mysql
+
+logging:
+  level:
+    com:
+      example:
+        SpringBoot:
+          dao: debug
