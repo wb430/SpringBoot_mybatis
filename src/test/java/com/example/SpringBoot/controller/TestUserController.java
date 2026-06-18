@@ -64,7 +64,8 @@
      public void apiTest02() throws Exception {
         MvcResult ra = mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserByName/wb"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        System.out.println("Dev分支操作");
+        System.out.println("远程分支操作");
+        System.out.println("本地分支操作");
         logger.info("状态响应码{}:"+ra.getResponse().getStatus());
         logger.info("响应结果{}:"+ra.getResponse().getContentAsString());
 
